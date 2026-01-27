@@ -1,21 +1,33 @@
-# Python artifacts
+# Python specific
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
+*.pyo
+*.pyd
+*.so
+.Python
 
-# Environment
+# Virtual Environment
 venv/
 .venv/
+env/
+ENV/
 .env
 
-# Pytest
+# Testing & Coverage
 .pytest_cache/
 .coverage
 .hypothesis/
+pytest_debug.log
 
-# IDE & OS
-.DS_Store
+# IDEs & Editor
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Note: 'reports/' and 'data/' are NOT ignored as requested for tracking.
+# OS files
+.DS_Store
+Thumbs.db
+
+# NOTE: The directories 'data/' and 'reports/' are NOT ignored
+# so that they can be tracked and pushed to Git.

@@ -1,0 +1,10 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"
+Test login functionality with data from CSV
+","1179","Login with CSV data: student","tests","2026-01-27","passed","2026-01-27","TestLoginDDT","test_login_ddt","",""
+"
+Test login functionality with data from CSV
+","152","Login with CSV data: incorrect","tests","2026-01-27","passed","2026-01-27","TestLoginDDT","test_login_ddt","",""
+"
+Test login functionality with data from CSV
+","1178","Login with CSV data: student","tests","2026-01-27","passed","2026-01-27","TestLoginDDT","test_login_ddt","",""
