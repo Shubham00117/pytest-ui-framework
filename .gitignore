@@ -1,0 +1,21 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+venv/
+.venv/
+.env
+
+# Pytest
+.pytest_cache/
+.coverage
+.hypothesis/
+
+# IDE & OS
+.DS_Store
+.vscode/
+.idea/
+
+# Note: 'reports/' and 'data/' are NOT ignored as requested for tracking.
