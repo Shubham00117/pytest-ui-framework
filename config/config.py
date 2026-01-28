@@ -4,7 +4,6 @@ import os
 class Config:
     # Base URL
     BASE_URL = "https://practicetestautomation.com/practice-test-login/"
-    BASE_URL2="https://rahulshettyacademy.com/client/#/auth/register"
     
     # Browser settings
     BROWSER = "chrome"

@@ -20,7 +20,8 @@ def driver(request):
     yield driver
     
     # Take screenshot on test failure
-    if request.node.rep_call.failed:
+    report = getattr(request.node, "rep_call", None)
+    if report and report.failed:
         screenshot_path = f"reports/screenshots/{request.node.name}.png"
         driver.save_screenshot(screenshot_path)
         allure.attach.file(screenshot_path, name="Screenshot", attachment_type=allure.attachment_type.PNG)
@@ -31,9 +32,10 @@ def driver(request):
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    if call.when == "call":
-        item.rep_call = call
-        yield
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == "call":
+        setattr(item, "rep_call", report)
 
 
 @pytest.fixture(scope="session")
