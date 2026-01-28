@@ -4,11 +4,12 @@ import os
 class Config:
     # Base URL
     BASE_URL = "https://practicetestautomation.com/practice-test-login/"
+    BASE_URL2="https://rahulshettyacademy.com/client/#/auth/register"
     
     # Browser settings
     BROWSER = "chrome"
     HEADLESS = False
-    IMPLICIT_WAIT = 10
+    IMPLICIT_WAIT = 30
     
     # Test data paths
     DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')

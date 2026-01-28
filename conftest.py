@@ -3,6 +3,7 @@ import allure
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from config.config import Config
 from utils.logger import Logger
 
 
@@ -13,8 +14,8 @@ def driver(request):
     
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     driver.maximize_window()
-    driver.implicitly_wait(10)
-    driver.get("https://practicetestautomation.com/practice-test-login/")
+    driver.implicitly_wait(Config.IMPLICIT_WAIT)        
+    driver.get(Config.BASE_URL)
     
     yield driver
     
