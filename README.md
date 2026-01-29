@@ -1,129 +1,121 @@
-# Pytest UI Framework
+# Professional Pytest UI Automation Framework
 
-A robust UI automation framework built with Pytest and Selenium.
+A state-of-the-art UI automation framework built with Pytest and Selenium, following industry-standard design patterns and best practices.
 
-## Project Structure
+## 🚀 Key Features
 
-```
+- **Page Object Model (POM)**: Enhanced maintainability and modularity.
+- **Parallel Execution**: Powered by `pytest-xdist` for high-speed test runs.
+- **Flaky Test Resilience**: Automatic reruns using `pytest-rerunfailures`.
+- **Soft Assertions**: Integrated `pytest-check` for comprehensive validation.
+- **Dynamic Configuration**: Support for multiple browsers and environments via command line.
+- **Rich Reporting**: Allure Results, Self-contained HTML reports, and automated screenshots on failure.
+- **Headless Support**: Seamless CI/CD integration with headless browser options.
+- **Structured Suites**: Industry-standard categorization (Smoke, Sanity, Regression).
+
+---
+
+## 🏗️ Project Structure
+
+```text
 pytest-ui-framework/
-│
-├── pages/              # Page Objects
+├── base/               # Base classes for reusable logic
+│   └── base_page.py    # Common Selenium wrappers
+├── pages/              # Page Object classes
 │   └── login_page.py
-│
-├── tests/              # Test cases
-│   └── test_login.py
-│
-├── utils/              # Helpers (wait, logger, config)
-│   └── wait_utils.py
-│
-├── reports/            # Generated reports
-│
-├── conftest.py         # Fixtures (browser, setup)
-├── pytest.ini          # PyTest config
-├── requirements.txt
-└── README.md
+├── tests/              # Test suites
+│   ├── test_login_valid.py
+│   └── test_login_ddt.py (Data Driven)
+├── data/               # Test data (CSV, JSON, etc.)
+│   └── login_data.csv
+├── utils/              # Logs, Helpers, Readers
+│   ├── logger.py
+│   └── csv_reader.py
+├── reports/            # Test execution artifacts
+│   ├── allure-results/
+│   └── screenshots/    # Failure captures
+├── config/             # Framework level settings
+├── conftest.py         # Global hooks and fixtures
+└── pytest.ini          # Pytest configuration & markers
 ```
 
-## Setup
+---
 
-1. **Create virtual environment:**
+## 🛠️ Setup & Installation
+
+1. **Activate Virtual Environment:**
    ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate  # macOS/Linux
+   # or
+   .\venv\Scripts\activate   # Windows
    ```
 
-2. **Install dependencies:**
+2. **Install Industry-standard Dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-## Running Tests
+---
 
-### Basic Test Run
+## 💻 Execution Commands
+
+### 🎯 Running Test Suites (Markers)
+| Suite | Command |
+| :--- | :--- |
+| **Smoke** | `pytest -m smoke` |
+| **Sanity** | `pytest -m sanity` |
+| **Regression** | `pytest -m regression` |
+
+### 🌐 Cross-Browser Testing
 ```bash
-pytest
+pytest --browser firefox
+pytest --browser edge
+pytest --browser chrome  # Default
 ```
 
-### Run with specific markers
+### ⚡ Parallel & Headless Execution
 ```bash
-pytest -m smoke
-pytest -m login
+# Run in parallel across all CPU cores in headless mode
+pytest --headless -n auto
 ```
 
-### Generate HTML Report
+### 🌍 Environment Switching
 ```bash
-pytest --html=reports/report.html --self-contained-html
+pytest --env prod
+pytest --env qa    # Default
 ```
 
-### Generate Allure Report
-```bash
-pytest --alluredir=reports/allure-results
-allure serve reports/allure-results
-```
+### 📊 Reporting
+- **HTML Report**: Automatically generated at `reports/report.html` after every run.
+- **Allure Report**:
+  ```bash
+  # Step 1: Run tests with Allure
+  pytest --alluredir=reports/allure-results
+  
+  # Step 2: Serve the report
+  allure serve reports/allure-results
+  ```
 
-### Run in Headless Mode
-```bash
-pytest -v --browser=headless
-```
+---
 
-## Page Object Model
+## 🧠 Best Practices Implemented
 
-The framework uses the Page Object Model pattern for better maintainability:
-
-- **pages/**: Contains page object classes
-- **tests/**: Contains test cases using page objects
-- **utils/**: Contains utility classes and helpers
-
-## Configuration
-
-### pytest.ini
-Main configuration file containing:
-- Test discovery patterns
-- Default command line options
-- Custom markers
-- Logging configuration
-
-### conftest.py
-Contains shared fixtures:
-- `browser`: Regular Chrome browser fixture
-- `browser_headless`: Headless Chrome fixture
-- Automatic screenshot capture on failure
-
-## Features
-
-- ✅ Page Object Model architecture
-- ✅ Automatic screenshot capture on test failure
-- ✅ HTML test reports
-- ✅ Allure reporting integration
-- ✅ Custom wait utilities
-- ✅ Headless browser support
-- ✅ Test markers for categorization
-- ✅ Detailed logging
-
-## Writing New Tests
-
-1. Create page objects in `pages/` directory
-2. Write test cases in `tests/` directory
-3. Use the `browser` fixture in your test functions
-4. Follow naming conventions: `test_*.py`
-
-Example:
+### 1. Soft Assertions (checks)
+Instead of hard `asserts` which stop execution immediately, we use `check`:
 ```python
-def test_example(browser):
-    page = LoginPage(browser)
-    page.load()
-    # Your test logic here
-    assert True
+import pytest_check as check
+
+def test_example(driver):
+    check.is_true(page.is_success(), "Success message missing")
+    check.equal(driver.title, "Expected", "Title mismatch")
+    # Test continues even if checks fail!
 ```
 
-## Reports
+### 2. Test Ordering
+Tests are ordered to follow logical workflows using `@pytest.mark.order(n)`.
 
-- **HTML Reports**: Generated in `reports/report.html`
-- **Allure Reports**: Generated in `reports/allure-results/`
-- **Screenshots**: Saved automatically on test failure
+### 3. Automated Error Recovery
+Failed UI tests are automatically rerun once to eliminate false negatives caused by network latency or transients.
 
-## Troubleshooting
-
-1. **WebDriver Issues**: Ensure Chrome browser is installed
-2. **Permission Issues**: Check if reports directory has write permissions
-3. **Timeout Issues**: Adjust wait timeouts in `conftest.py` or page objects
+### 4. Failure Screenshots
+The framework automatically captures and attaches screenshots to Allure reports when a test fails, helping in instant debugging.

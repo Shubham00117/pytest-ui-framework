@@ -6,6 +6,7 @@ __pycache__/
 *.so
 .Python
 
+
 # Virtual Environment
 venv/
 .venv/
@@ -24,6 +25,7 @@ pytest_debug.log
 .idea/
 *.swp
 *.swo
+reports/
 
 # OS files
 .DS_Store

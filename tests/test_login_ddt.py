@@ -6,6 +6,7 @@ from utils.logger import Logger
 
 class TestLoginDDT:
     
+    @pytest.mark.regression
     @pytest.mark.parametrize("login_data", get_login_data())
     def test_login_ddt(self, driver, login_data, logger):
         """Test login functionality with data from CSV"""
